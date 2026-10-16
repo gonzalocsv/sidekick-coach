@@ -1,0 +1,44 @@
+name: Bug
+description: Something does not work as it should.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Please never paste meeting content, transcripts or anyone's name. `hud doctor` output contains none.
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: "1. …\n2. …"
+    validations:
+      required: true
+  - type: input
+    id: macos
+    attributes:
+      label: macOS version and chip
+      placeholder: macOS 15.1, M2
+    validations:
+      required: true
+  - type: dropdown
+    id: stt
+    attributes:
+      label: Transcription
+      options: [Gemini, OpenAI, On this Mac, Not sure]
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Sidekick version (Settings › About)
+    validations:
+      required: true
+  - type: textarea
+    id: doctor
+    attributes:
+      label: "Diagnostics: Settings › About › Export diagnostics…, then drag the file here (developers: `hud doctor`)"

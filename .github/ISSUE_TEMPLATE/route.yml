@@ -1,0 +1,25 @@
+name: Route proposal
+description: A playbook for a situation (the community page is the easier way to submit one).
+labels: [route]
+body:
+  - type: input
+    id: situation
+    attributes:
+      label: The situation
+      placeholder: Holding a price when procurement pushes back
+    validations:
+      required: true
+  - type: textarea
+    id: route
+    attributes:
+      label: The route (route.md), or what it should coach
+      render: markdown
+  - type: checkboxes
+    id: rules
+    attributes:
+      label: Ground rules
+      options:
+        - label: It contains no real transcript, name, company or number.
+          required: true
+        - label: I agree to license it under CC BY 4.0.
+          required: true

@@ -1,0 +1,22 @@
+name: Idea
+description: Something Sidekick could do.
+labels: [idea]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What are you trying to do in or after a meeting?
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: What would help?
+  - type: checkboxes
+    id: rules
+    attributes:
+      label: Ground rules
+      options:
+        - label: It works without sending anything about my meetings to anyone but my own AI provider.
+          required: true
+        - label: If it grades something, I can point to research for it (docs/EVIDENCE.md), or it is coaching only.

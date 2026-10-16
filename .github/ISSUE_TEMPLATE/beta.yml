@@ -1,0 +1,31 @@
+name: Beta feedback
+description: For the private beta. What broke, what confused you, what helped.
+labels: [beta]
+body:
+  - type: markdown
+    attributes:
+      value: Thank you for testing. Please never paste meeting content or anyone's name; describe it instead.
+  - type: dropdown
+    id: stage
+    attributes:
+      label: Where were you?
+      options: [Installing, Onboarding, Importing a meeting, A live call, A review, Growth, Settings, Somewhere else]
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what did you expect?
+    validations:
+      required: true
+  - type: checkboxes
+    id: blocker
+    attributes:
+      label: Did it stop you?
+      options:
+        - label: I could not continue without help
+  - type: input
+    id: mac
+    attributes:
+      label: Mac and macOS version
+      placeholder: MacBook Air M1, macOS 14.6

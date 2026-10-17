@@ -6,7 +6,7 @@
 
 <p align="center"><b>Every meeting, reviewed move by move.</b><br />
 Sidekick grades the moments that mattered and shows you the stronger line.<br />
-Runs on your Mac. Nothing is sent to us.</p>
+Runs on your Mac. Nothing about your meetings is sent to us.</p>
 
 <p align="center">
   <a href="https://learnwithsidekick.com/download">Download for Mac</a> ·
@@ -31,7 +31,8 @@ docs. The app's source code is not published here.
   nothing.
 - **Local-first, with your own AI key.** Meetings, transcripts, notes and reviews are plain files and a database on
   your Mac. The coaching runs on your own Gemini or OpenAI key; transcribe on the Mac and your audio never leaves it.
-  No account required, no telemetry.
+  No account required, no telemetry. Optional: an account holds your name, email and supporter status, nothing about
+  your meetings.
 - **Every grade stands on published research.** A behavior is graded only when a meta-analysis, replicated
   experiments or a peer-reviewed study backs it ([docs/EVIDENCE.md](docs/EVIDENCE.md)). Everything else may coach,
   never score.

@@ -5,7 +5,7 @@ participants are, recording or transcribing a conversation may require their con
 consent" rules in several US states and some countries) or at least notice.
 
 Practical guidance (not legal advice):
-- Tell participants you are using an AI note-taker, or include it in the meeting invite.
+- Tell participants you are using an AI meeting coach that transcribes the call, or include it in the meeting invite.
 - When in doubt, ask. Many organisations already require this for any recording tool.
 - Sidekick keeps everything on your Mac; it does not publish or share transcripts.
 

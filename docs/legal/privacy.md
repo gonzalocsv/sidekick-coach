@@ -1,6 +1,6 @@
-# Sidekick privacy policy (draft — have a lawyer review before publishing)
+# Sidekick privacy policy
 
-_Last updated: 2026-10-15_
+_Last updated: 2026-10-16_
 
 **The short version:** Sidekick runs on your Mac. Your meetings, transcripts, notes and the people you track are
 stored on your computer, in folders you can open. We never see them.
@@ -9,7 +9,8 @@ stored on your computer, in folders you can open. We never see them.
 - **Audio of your meetings** is captured on your Mac. With transcription **on this Mac** (whisper.cpp), it never
   leaves your computer. With transcription by **Google Gemini or OpenAI**, it is streamed to that provider using
   **your own API key**, under that provider's terms. It is never sent to us. Audio is kept on disk only until the
-  post-meeting transcript is finished, then deleted, unless you choose to keep a recording.
+  after-meeting steps are finished (grouping voices on your Mac, the more accurate transcript), then deleted, also when
+  a step fails, unless you choose to keep a recording.
 - **Meetings you import** (a transcript file or a recording you drop on the app) are read on your Mac and stored like
   any other meeting. The text goes to your AI provider to write the debrief and the review, as after a live meeting.
 - **Transcripts, summaries, cards, people notes, commitments, prep documents** are stored in `~/Sidekick/` and a
@@ -22,21 +23,26 @@ stored on your computer, in folders you can open. We never see them.
   connect to the app on your computer, and what they do with it is under their own terms.
 
 ## What we receive
+- **Our account service** is one small server we run on Google Cloud (Cloud Run, with its data in Firestore, in the
+  United States). It checks supporter keys and runs the optional accounts. To limit abuse it counts requests per IP
+  address for one minute, in memory; addresses are not stored.
 - **License checks:** only if you enter a supporter key: the key, a device name and an anonymous device identifier,
-  sent to our licence server and to Polar, our merchant of record, to activate it and to check it once a day. Nothing
-  about your meetings is included. Without a key or an account, the free app makes no license calls.
+  sent to our account service and to Polar, our merchant of record, to activate it and to check it once a day.
+  Nothing about your meetings is included. Without a key or an account, the free app makes no license calls.
 - **Accounts (optional):** only if you sign in. You sign in on our sign-in page with Google or an emailed link
-  (Google Firebase Authentication). We keep your email, how you signed in, whether you are a supporter, when you last
-  checked in, and for each signed-in Mac a device name and an anonymous device identifier. The app checks in once a
-  day to renew your supporter status. Nothing about your meetings is ever sent. You can sign out or delete the account
-  in Settings › Supporter; deleting it removes all of this from our server.
+  (Google Firebase Authentication). We keep your name, your email, how you signed in, whether you are a supporter,
+  when you last checked in, and for each signed-in Mac a device name and an anonymous device identifier. The app
+  checks in once a day to renew your supporter status. Nothing about your meetings is ever sent. You can sign out or
+  delete the account in Settings › Supporter; deleting it removes all of this from our server, including the
+  supporter record for your email (below). A supporter key keeps working, since keys are checked with Polar, and
+  Polar's next notice about your purchase (a renewal) records your supporter status again.
 - **Transcription models:** only when you choose transcription on this Mac and click Download, the app downloads the
   model file from its public host (Hugging Face). The request carries nothing about you beyond your IP address.
 - **The community library:** only when you click Browse library or Install, the app downloads the library index and
   the route you chose from GitHub (raw.githubusercontent.com). The request carries nothing about you beyond what any
   web request carries (your IP address); we do not count installs.
 - **Payments:** handled by Polar as merchant of record (or GitHub Sponsors, if you sponsor there); we receive your
-  email and order details. To mark route authors who are supporters, our licence server keeps a one-way hash of each
+  email and order details. To mark route authors who are supporters, our account service keeps a one-way hash of each
   supporter's email and whether the support is active; not the email itself.
 - **Support:** whatever you choose to send us. Diagnostic logs contain no transcript text.
 

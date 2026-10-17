@@ -1,131 +1,95 @@
 # Changelog
 
-## Unreleased — Spaces behave normally around Sidekick
-- **Swiping between Spaces works again.** Swiping out of a full-screen app (say, a video) no longer pulls you back to
-  Sidekick's Meetings window. The HUD no longer changes the app's process type on launch, which had made Sidekick the
-  active app and sent macOS to its window's Space. The HUD is also kept out of Mission Control. It still floats over
-  full-screen Meet and Zoom.
+## 1.0.0 — not yet released
 
-## Unreleased — optional accounts; the licence server moves to GCP
-- **Optional accounts.** Settings › Supporter › Online account has **Create account** (name and email) and **Sign in**,
-  separate like the profiles on this Mac; both finish in the browser with Google or an emailed link, and signing in
-  needs an account created first. An account holds only your name, email and whether you're a supporter; buy the Supporter plan with the same email and the badge and beta
-  updates follow you, no key needed. Sign out or delete the account from the same place. The app is unchanged
-  without one, and meetings never leave the Mac.
-- **One service on GCP** (`server/account-service`: Cloud Run, Firestore, Firebase Auth) replaces the Cloudflare
-  licence worker. Supporter keys work as before. The website's Verified-author check asks it instead of Cloudflare KV.
+The first public release. Sidekick is free, runs on your Mac, and uses your own AI key.
 
-## Unreleased — true scores: every voice captured, every name checked (PLAN-SCORING, PLAN-CAPTURE)
-- **No mic, no score.** A meeting where Sidekick heard little or none of your voice, or where the review found fewer
-  than two of your own moves, is reviewed but not scored, and the review says why. Before, it could only find
-  "missed openings" and scored about 40.
-- **Accuracy rubric 2.** Every graded move earns points (good 82, great 94, brilliant 100); misses and mistakes cost
-  points instead of being the only thing counted, and short meetings swing less. An ordinary solid meeting lands
-  65–75; 90 takes great moves throughout. `hud review --rescore` applies it to past reviews locally (backup first).
-- **Your voice is never lost silently.** If your mic sends only silence or stops while the meeting is talking, the HUD
-  says so within a minute. Being muted in Meet, Teams or Zoom now marks your lines "muted in call" instead of dropping
-  them, and a mute state that stops arriving expires after 15 s. The echo guard only acts while the meeting is
-  speaking, and turns itself off if it holds back too much of your own speech.
-- **Capture report.** Each meeting records which mic was used, how much each side spoke, and anything dropped and why.
-  The review shows a Capture line; `hud capture <meeting id>` prints the full report.
-- **The right name on every voice, with almost no AI.** The live coach no longer guesses who is speaking (it guessed
-  invitees who never spoke). A name now comes from the call app, an import, you, or one checked naming call after the
-  meeting, which keeps a name only when a quote proves it ("I'm just Theo"); it shows as "Theo?" until you confirm it.
-  After the meeting Sidekick groups the other side's lines by voice on this Mac ("Voice A"); confirm one and it's
-  remembered for your next meeting. Click any name in the transcript to fix it; the review re-scores without a model
-  call (`PATCH /api/sessions/{id}/speakers`). No naming call at all when every voice already has a name.
-- **No review call when your mic was missed**: the meeting says why it wasn't scored, and the debrief is told.
-- The debrief judges only your own lines; it no longer credits you with what others said back.
+### Review a meeting you already had
+- Drop a transcript (Zoom, Google Meet or Teams captions, Otter, Fireflies, Granola, pasted text) or a recording on
+  the meetings list, say which speaker is you, and the debrief and the review follow, with no permission prompt.
+- Onboarding asks how you want to start: review a past meeting, set up live listening, or try the HUD first. Every
+  path is optional.
+- An imported meeting is always reviewed. If you barely spoke in it, the review says so ("you said very little")
+  instead of blaming the mic, and it isn't scored.
 
-## 1.0.0 — first public release (PLAN-LAUNCH.md)
-- **Review a meeting you already had.** Drop a transcript (Zoom, Google Meet or Teams captions, Otter, Fireflies,
-  Granola, a pasted text) or a recording on the meetings list, say which speaker is you, and the debrief and the
-  review follow, with no permission prompt. Also `hud import <file>`. Onboarding now asks how you want to start:
-  review a past meeting, set up live listening, or try the HUD first; all optional.
-- **Transcription on this Mac.** Choose "On this Mac" in onboarding or Settings › Transcription: whisper.cpp with a
-  model you download once; your audio never leaves the Mac. Cards, debriefs and reviews can point at a local
-  OpenAI-compatible server (experimental). An AI key is required: the app stays in onboarding until one is saved
-  (the backend starts without one so onboarding can take it; listening and imports refuse until then).
-- **Share card.** Review › Share draws a card of the meeting: accuracy, six skills, the best and the hardest moment.
-  Never anyone else's words; your own only if you tick it, with names replaced. Copy, save, or copy as text.
-- **Profiles, not a sign-in wall.** First run creates a profile for this Mac with no password. Settings › Profile
-  adds more (a password is optional) and switches between them.
-- **Simpler launch.** Teams and Zoom are experimental and off until you turn them on in Connections (nothing is read
-  through Accessibility before that). Settings › Appearance can hide levels, XP and streaks; reviews keep running.
-- **Supporters through Polar**, with GitHub Sponsors beside it. Supporter tokens now last 14 days and renew daily.
-- **Community.** Install a route from the website (`sidekick://route/<slug>`), or share yours from Growth › Routes
-  without a GitHub account. Routes are CC BY 4.0.
-- **Fixes.** The Review window recovers by itself if its page process dies (it used to stay blank until a restart)
-  and logs why. Settings › Integrations is shorter: one switch, an app picker, and Advanced. Temporary meeting audio
-  is deleted when it is not re-transcribed.
-- Open source: AGPL-3.0, contributor guide, CI, signed releases on GitHub with a Homebrew cask, and a website with
-  the community pages (`site/`).
+### Live in a call
+- A small HUD floats over Google Meet (and, when you turn them on, Teams and Zoom) and suggests one move at a time:
+  what to ask, push back on, or close. Skip a card and the next one takes a different angle.
+- A mic that sends only silence, or stops while the meeting is talking, is reported within a minute.
+- Sidekick notices when macOS takes microphone or calendar access away (a reinstall can do that) and says so in the
+  HUD and the Review window, with an "Allow again" button; the notice goes as soon as access is back. It checks at
+  startup, every 10 minutes while idle and before you start listening, and never asks macOS on its own. Start refuses
+  a mic that macOS blocks instead of recording silence.
+- Lines you say while muted in the call app are kept and marked "muted in call"; the coach doesn't react to them,
+  since the other side never heard them.
+- Swiping between Spaces works normally: Sidekick no longer pulls you back to its window, and the HUD stays out of
+  Mission Control while still floating over full-screen Meet and Zoom.
+- Sidekick no longer takes ⌘⇧R, so hard reload works again in your browser and other apps. "Record this call" is
+  still in the menu-bar menu.
 
-## Unreleased — the game: a path you can see, drills that build (PLAN-GAME.md)
-- Evidence-backed coaching (PLAN-EVIDENCE.md, docs/EVIDENCE.md). The six skill anchors, the judge, the meeting goal
-  and the live card were checked against the research on meetings, negotiation, conversation and feedback, and
-  rewritten where it disagreed: pushback that acknowledges the point and gives the fact or the alternative scores
-  above a flat "that's wrong"; talking more or less earns nothing on its own, and a pause counts when it let them think
-  or improve their offer; calibrated uncertainty and softened phrasing in a second language are no longer hedges;
-  follow-ups that pin something down beat topic switches; a concession that matches theirs is a trade. Meeting goals
-  are now something you do, tied to the moment it will happen. Chair the decision rewards framing the question and
-  giving your view last; Sell the room keeps answer-first for advisors. Every route lens now grades only what
-  research supports and names the rest as habits. Route rules and achievement ids are unchanged, so no tick or
-  achievement moves; the eleven routes are version 2.
-- Write your own routes in the app: Growth › Routes › New route. Describe the situation in a sentence or two and
-  Sidekick drafts the whole route (focus tracks, path, achievements, drills); edit anything, every rule is picked, not
-  typed, and checked as you type by the library's own linter. Edit
-  any route the same way (a bundled one becomes your copy). Share to the community replaces names Sidekick knows,
-  checks the file and opens the library repo's new-file page with it filled in; GitHub turns it into a pull request.
-- Routes page: search, a filter by kind of work, a filter by source, four to a page; the community library's routes
-  appear in the same list once it opens (it says "coming soon" until then). The library gets a static listing
-  generated with its index, for the Sidekick site.
-- Six more routes, for work that is not client work: Lead the team (1:1s and feedback), Run the ops (status
-  meetings and blockers), Hold the plan (scope, dates and risks), Chair the decision (leadership meetings), Hire well
-  (interviews), Ship the roadmap (discovery and roadmap talks), Close the deal (sales calls), Keep the customer
-  (renewals, reviews, escalations). Routes are only recommended when they fit your role or direction; with no fit,
-  none is pushed.
-- Growth › Path is a map: one winding trail per route with numbered steps, the current step inside its progress ring,
-  a gate when the route is complete, and the route recommended next in fog. Finished routes fold above it; projects
-  and skills are side trails. Nothing is locked: steps tick in any order, and every step shows its progress.
-- Open any step for what counts in plain words, the meetings that counted, your closest miss, and a drill aimed at it.
-  A step that ticks animates once after the review; the toast names it.
-- Overview: the six skills only (your tracks are one line of chips that lead to the skill they feed), the trail in
-  miniature, and Today's drills. Skill pages have Back, the skill's path, its heat, your tracks on it, and practice
-  for that skill (it used to train your weakest one).
-- Drills: targeted at a skill or a step, a second beat when the counterpart pushes back, a heat ladder per skill
-  (cordial, pressed, hostile), Today's drills with a drill-day streak, a re-test two weeks after you redeem a miss,
-  feedback with the rubric line you reached and your line next to the stronger one, route lines rewritten in your
-  language once a week. Drills still never move ratings.
-- No rule grammar on screen: steps and milestones are written in words; projects get a milestone builder.
-- Navigation: Back on every sub-page, ⌘[ and ⌘] through Growth history, the sidebar highlights the parent page, the
-  Upcoming list sits in the Growth sidebar, and "Set a goal" with no meetings ahead offers Prep a meeting and
-  Connect a calendar instead of an empty page.
-- Under it: path steps keyed by rule (a reordered route keeps its ticks; existing data migrates), per-route state in
-  its own table, the rule evaluator in `rules.py` with evidence and closest-miss queries, `trails.py`, and Growth's
-  renderer split into a router, a store and one file per page.
+### Capture and names
+- Transcription in the cloud with your key, or on this Mac (whisper.cpp with a model you download once; the audio
+  never leaves the Mac).
+- Each meeting keeps a capture report: which mic was used, how much each side spoke, and anything dropped and why.
+  The review shows it as its Capture line.
+- The live coach never guesses who is speaking. A name comes from the call app, an import, you, or one checked naming
+  call after the meeting that keeps a name only when a quote proves it ("I'm Theo"); it shows as "Theo?" until you
+  confirm it.
+- After the meeting, Sidekick groups the other side's lines by voice on this Mac ("Voice A"). Confirm a name once and
+  that voice is recognised in your next meeting. Click any name in the transcript to fix it; the review re-scores
+  without a model call.
 
-## Unreleased — routes, one catalogue, the community library, the free core (PLAN-COMMUNITY.md)
-- Routes: role-shaped playbooks as Markdown files (focus tracks, lens, path, achievements, drills). Three ship with the
-  app: Sell the room, Hold the number, Run the account. Recommended at the end of onboarding and in Growth › Routes;
-  following one is optional and reversible.
-- One achievement catalogue for everyone: every route's achievements are evaluated after every review whether or not
-  you follow it. Growth › Achievements groups the catalogue by route, with a role filter.
-- Rule grammar v2: `kind:`, `attendees>=`, `lang:` qualifiers; review-derived counts ignore unscored meetings.
-- Community library: `library/` (seed of the sidekick-routes repo) with CI lint and an index pinned to a commit;
-  Browse/Install/Update fetched only on click; `make release` vendors it; `make routes` keeps tools in sync.
-- Export your Growth as a route (names scrubbed). Edit any route; your copy wins.
-- Free: no trial, no offline countdown, nothing gated. An optional supporter key marks you as a supporter and moves
-  your app to the beta update channel. Terms and privacy drafts updated.
-- Licence hardening: owner unlock signed with an Ed25519 key that never ships; optional licence server
-  (`server/license-worker`, Cloudflare Worker) returning signed, device-bound tokens; the licence module ships as native
-  code; Electron fuses (no run-as-node, no NODE_OPTIONS / inspector, ASAR integrity, app only from ASAR).
-- Onboarding: a People step (suggestions from your calendar and meetings), every connection required before Continue,
-  a guided Chrome extension install (bundled with the app; Chrome Web Store when `[meet] store_url` is set), "Try it"
-  hotkeys are practice only and survive hiding the HUD, a support card on Done, and where your data lives, said plainly.
-- HUD: the 9 keycap is centred in the Pause pill; popover shadows fade out instead of being cut by the window edge.
-- `hud route lint|list|follow|finish|index`; `hud review-eval --route <slug>` measures how far a lens moves grades.
+### Scoring
+- A chess-style review of every meeting: graded moves (brilliant to blunder), six skills, the goal you set, and one
+  lesson. The six skill anchors, the judge and the live card were checked against research on meetings,
+  negotiation, conversation and feedback (see [EVIDENCE.md](docs/EVIDENCE.md)).
+- Every graded move earns points (good 82, great 94, brilliant 100); misses and mistakes cost points, and short
+  meetings swing less. An ordinary solid meeting lands 65 to 75.
+- No mic, no score: a meeting where Sidekick heard little or none of your voice, or where the review found fewer than
+  two of your own moves, is reviewed but not scored, and the review says why. The judge isn't called at all when the
+  capture report shows your mic was missed.
+- The debrief judges only your own lines and never credits you with what others said back.
 
-## 1.0.0 — 2026-10-14 (local build; not yet notarized)
-- First sellable build: self-contained app, licensing with a 14-day trial, signing/notarization and auto-updates
-  (when credentials are configured), Chrome Web Store package, privacy/terms/consent drafts.
+### Routes and community
+- Routes are role-shaped playbooks (focus tracks, a path, achievements, drills). Eleven ship with the app, from Sell
+  the room to Hire well; one is recommended only when it fits your role.
+- One achievement catalogue for everyone: every route's achievements count whether or not you follow it.
+- Write your own route in Growth › Routes › New route, or edit any route (a bundled one becomes your copy). Install a
+  route from the website with one click, or share yours from the app without a GitHub account. Routes are CC BY 4.0.
+
+### Growth
+- Growth › Path is a map: one trail per route, the current step in its progress ring, and the route recommended next.
+  Nothing is locked; steps tick in any order, and each shows what counts, the meetings that counted and your closest
+  miss.
+- Drills aimed at a skill or a step, with a second beat when the other side pushes back, a heat ladder per skill, and
+  a re-test two weeks after you redeem a miss. Drills never move ratings.
+- A share card of a meeting: accuracy, six skills, the best and the hardest moment. Never anyone else's words; your
+  own only if you tick it, with names replaced.
+- Projects: a meeting joins a project only when you add it. The review suggests the project it seems to belong to
+  ("Add to … ?"), and a topic that comes up in two meetings is proposed as a new project.
+- Settings › Appearance can hide levels, XP and streaks; reviews keep running.
+
+### Profiles and the optional account
+- Profiles, not a sign-in wall: first run creates a profile for this Mac with no password. Add more in Settings ›
+  Profile (a password is optional) and switch between them; each has its own data.
+- Optional online account: Settings › Supporter › Online account has Create account and Sign in, both finished in the
+  browser with Google or an emailed link. After the browser, the app asks "Signed in as <email>. Is that you?" and
+  keeps the session only if you say yes. An account holds your name, email and supporter status, nothing about your
+  meetings. Sign out or delete it from the same place; deleting it also deletes its supporter record.
+
+### Supporters
+- Everything works for free: no trial, nothing gated. Supporting is optional, with a supporter key or the account
+  that bought it, and marks you as a supporter and moves your app to the beta update channel.
+
+### Privacy guarantees
+- Meetings, reviews and progress stay on your Mac. An app update may add to them and never removes or rewrites them;
+  migrations are checked and backed up first ([DATA-SAFETY.md](docs/DATA-SAFETY.md)).
+- Meeting audio is temporary: kept only until the after-meeting steps finish (grouping voices, the more accurate
+  transcript), then deleted, also when a step fails. Turning on recording is the only way to keep it.
+- Supporter and account checks send a hash of your Mac's hardware ID, never the ID itself.
+
+### Known limits
+- Teams and Zoom are experimental and off until you turn them on in Connections; nothing is read through
+  Accessibility before that.
+- Reviews, debriefs and live cards need an AI key (Gemini or OpenAI). A local OpenAI-compatible server is
+  experimental.

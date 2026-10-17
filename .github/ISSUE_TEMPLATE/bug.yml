@@ -4,7 +4,7 @@ labels: [bug]
 body:
   - type: markdown
     attributes:
-      value: Please never paste meeting content, transcripts or anyone's name. `hud doctor` output contains none.
+      value: Please never paste meeting content, transcripts or anyone's name. The diagnostics file below contains none.
   - type: textarea
     id: what
     attributes:
@@ -41,4 +41,4 @@ body:
   - type: textarea
     id: doctor
     attributes:
-      label: "Diagnostics: Settings › About › Export diagnostics…, then drag the file here (developers: `hud doctor`)"
+      label: "Diagnostics: Settings › About › Export diagnostics…, then drag the file here. If your voice wasn't picked up, also paste the Capture line from that meeting's review."

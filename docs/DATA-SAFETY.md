@@ -26,8 +26,15 @@ enforced, and what every change to the code has to respect.
 7. **Your files are versioned.** Every save of `profile.md` and `objectives.md` by the app keeps the previous version
    as `.bak` and a dated copy in `~/Sidekick/.history/` (the last 30). A replayed onboarding keeps the sections Growth
    owns (Tracks, Direction, Broken patterns) and starts the Languages step from the languages you saved.
-8. **Accounts are separate.** Each signed-in account has its own database and folder. Signing in to the demo account
-   shows an empty Growth; your own account's data is untouched and comes back when you sign in again.
+8. **Profiles are separate.** Each profile on this Mac has its own database and folder. Switching to a demo profile
+   shows an empty Growth; your own profile's data is untouched and comes back when you switch back.
+9. **Audio is temporary.** While a meeting runs, and while its summary is made, the app writes 16 kHz WAVs (`you.wav`,
+   `them.wav`) to `<data>/tmp-audio/<meeting id>/`. They exist only for the after-meeting steps: grouping voices on
+   this Mac (`[voices] enabled`) and the more accurate transcript (`[summary] retranscribe`, which sends the audio to
+   your own Gemini key). The folder is deleted as soon as those steps finish, also when one of them fails, and right
+   away when a meeting is discarded or too short to summarize. `record = true` (or "Record this call" in the menu-bar
+   menu) is the only way to keep meeting audio; it then goes to `recordings_dir` instead. If the app quits mid-meeting, the folder can remain until
+   you delete it.
 
 ## Where to look
 

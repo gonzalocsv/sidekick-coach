@@ -12,10 +12,10 @@ a public issue. You will get an answer within two working days, and credit in th
 
 - Anything that sends audio, transcripts, summaries, people notes or keys off the Mac, other than to the AI provider
   the user chose with their own key.
-- The local API (`127.0.0.1:8765`): requests from web pages, other users on the Mac, or anything that bypasses the
-  origin and token checks (`backend/hud/origins.py`, the MCP token).
+- The local API (`127.0.0.1:8765`): requests from web pages, other users on the Mac, or anything that bypasses its
+  origin checks or the token other AI apps use to connect.
 - The browser extension: anything a web page can make it do.
-- The account service (`server/account-service`): forging or replaying supporter or account tokens, taking over
+- The account service (sign-in and supporter checks): forging or replaying supporter or account tokens, taking over
   a sign-in, or reading someone else's account.
 - Updates and the downloaded whisper models: anything that makes the app run code or load a model it should not.
 

@@ -31,8 +31,7 @@ docs. The app's source code is not published here.
   nothing.
 - **Local-first, with your own AI key.** Meetings, transcripts, notes and reviews are plain files and a database on
   your Mac. The coaching runs on your own Gemini or OpenAI key; transcribe on the Mac and your audio never leaves it.
-  No account required, no telemetry. Optional: an account holds your name, email and supporter status, nothing about
-  your meetings.
+  No online account, no telemetry. Supporting is a key you paste into Settings.
 - **Every grade stands on published research.** A behavior is graded only when a meta-analysis, replicated
   experiments or a peer-reviewed study backs it ([docs/EVIDENCE.md](docs/EVIDENCE.md)). Everything else may coach,
   never score.
@@ -64,8 +63,8 @@ Zoom are experimental.
 ## What we never do
 
 - **No telemetry.** The app never reports anything about you or your meetings to us. There is nothing to opt out of.
-- **No account required.** Everything works without signing up. An online account is optional and holds only your
-  name, your email and whether you're a supporter.
+- **No online account.** Everything works without signing up anywhere. Your profile lives on your Mac; supporting is a
+  key you paste into Settings.
 - **No sharing of other people's words.** Routes and anything you export to the community contain only invented
   examples; a share card never contains what someone else said.
 - **No grades without evidence.** If the research does not support grading a behavior, Sidekick does not grade it.

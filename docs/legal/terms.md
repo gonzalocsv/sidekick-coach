@@ -11,10 +11,8 @@ _Last updated: 2026-10-16_
    you can do with your data. Subscriptions renew automatically until cancelled via the customer portal; refunds
    follow the policy of the merchant of record (Polar). (If a future version requires a subscription for live features, these
    terms will say so before it applies to you, and reading data you already created will never require one.)
-3. **The optional account.** You can create an online account in Settings › Supporter. It holds your name, your
-   email and whether you are a supporter, nothing about your meetings, so supporter status follows you to every Mac
-   you sign in on. The app works the same without one. Delete it any time in Settings › Supporter › Delete account;
-   that removes it from our server (see the privacy policy for what is kept and for how long).
+3. **No online account.** Signing in to Sidekick is a profile on your Mac. Supporter status is your supporter key,
+   entered in Settings › Supporter on each Mac (up to three per key).
 4. **Routes and the community library.** Routes are text files. Routes in the community library are contributed by
    their authors under the licence stated in each file (CC-BY-4.0 unless it says otherwise) and are reviewed but
    provided "as is". Installing one downloads only that file; nothing about you or your meetings is sent. Do not

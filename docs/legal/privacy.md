@@ -24,18 +24,17 @@ stored on your computer, in folders you can open. We never see them.
 
 ## What we receive
 - **Our account service** is one small server we run on Google Cloud (Cloud Run, with its data in Firestore, in the
-  United States). It checks supporter keys and runs the optional accounts. To limit abuse it counts requests per IP
+  United States). It checks supporter keys and receives supporters' feedback. There are no online accounts: signing in
+  to Sidekick is a profile on your Mac. To limit abuse it counts requests per IP
   address for one minute, in memory; addresses are not stored.
 - **License checks:** only if you enter a supporter key: the key, a device name and an anonymous device identifier,
   sent to our account service and to Polar, our merchant of record, to activate it and to check it once a day.
-  Nothing about your meetings is included. Without a key or an account, the free app makes no license calls.
-- **Accounts (optional):** only if you sign in. You sign in on our sign-in page with Google or an emailed link
-  (Google Firebase Authentication). We keep your name, your email, how you signed in, whether you are a supporter,
-  when you last checked in, and for each signed-in Mac a device name and an anonymous device identifier. The app
-  checks in once a day to renew your supporter status. Nothing about your meetings is ever sent. You can sign out or
-  delete the account in Settings › Supporter; deleting it removes all of this from our server, including the
-  supporter record for your email (below). A supporter key keeps working, since keys are checked with Polar, and
-  Polar's next notice about your purchase (a renewal) records your supporter status again.
+  Nothing about your meetings is included. Without a key, the free app makes no license calls.
+- **Feedback (supporters):** only when you click Send. We receive what you typed, what kind of note it is, and, if you
+  leave that box ticked, the app version and macOS version shown next to it. Nothing else is attached: no logs, no
+  transcripts. If you tick "You can reply", we keep the email your supporter key was bought with, so we can answer.
+  Feedback is linked to a one-way hash of your key, so the app can show you its status. We keep it until it is dealt
+  with; write to us to have yours deleted sooner.
 - **Transcription models:** only when you choose transcription on this Mac and click Download, the app downloads the
   model file from its public host (Hugging Face). The request carries nothing about you beyond your IP address.
 - **The community library:** only when you click Browse library or Install, the app downloads the library index and
@@ -52,7 +51,8 @@ We do not run analytics or telemetry in the app.
 - **Analytics:** if turned on, a cookieless counter (no cookies, no cross-site tracking) counts page views.
 - **Community route submissions:** the form sends the route text, the name and the profile link you enter. They
   become a public pull request on GitHub, credited to that name and link. If you enter a supporter email or order id,
-  it is used once to check our supporter list and is not stored, logged or published. To limit abuse, a hash of your
+  it is used once to check our supporter list and is not stored, logged or published. The app sends a supporter's
+  signed supporter token instead of an email, checked once by our account service in the same way. To limit abuse, a hash of your
   IP address is kept for up to an hour.
 - **Downloads** come from GitHub Releases, under GitHub's terms.
 

@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.0.3 — 2026-10-23
+
+### Google Meet extension from the Chrome Web Store
+- "Sidekick for Google Meet" is on the Chrome Web Store. Settings › Connections and onboarding now say "Add to
+  Chrome" and open the listing: no developer mode, no folder to load, and Chrome keeps it up to date.
+- The first time the installed app opens, it asks Chrome to offer the extension. The next time Chrome starts it
+  shows "Enable extension": one click and the Google Meet row turns green. Sidekick asks only once; if you remove
+  the extension, Chrome won't add it back. Turn this off with `[meet] auto_offer = false`.
+
 ## 1.0.2 — 2026-10-22
 
 ### Your words, not the meeting's

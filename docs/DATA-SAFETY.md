@@ -15,6 +15,9 @@ protected, and what every release has to respect.
    stops instead of running on damaged data.
 4. **Only you remove progress, one item at a time.** Deleting a meeting, re-reviewing or re-transcribing a meeting,
    correcting a meeting's kind or goal, removing a goal, and Reset are the only places that delete progress rows.
+   One more step touches only the meeting that just ended: lines where your mic picked up the meeting from your
+   speakers are taken out of your side of its transcript. What it removes stays in that meeting and can be put back.
+   Meetings already stored are never changed by it.
    Nothing else in the app deletes progress, and every release is tested to prove it.
 5. **Big actions back up first.** Reset (which asks you to confirm) and Re-review all save a
    copy first. Restoring a backup copies the current database first, so a restore can be undone.

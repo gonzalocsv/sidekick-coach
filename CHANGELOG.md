@@ -1,5 +1,27 @@
 # Changelog
 
+## 1.0.2 — 2026-10-22
+
+### Your words, not the meeting's
+- Without headphones your mic also hears the meeting from your speakers, and those words were stored as yours.
+  In two real meetings about half of "your" lines repeated what someone else had just said, so the review graded
+  their words as yours and speaker naming got harder. After each new meeting Sidekick now takes the meeting's words
+  out of your lines: a sentence of yours that mostly repeats what the others said in the seconds around it goes,
+  and your own sentences stay whole. The live echo filter missed these because the high-accuracy transcript
+  re-reads your whole mic track afterwards, and because the speaker-echo guard switched itself off when the echo
+  was loud.
+- Meetings already stored don't change. The words taken out stay in the meeting, so they can be put back.
+
+### Voices that tell people apart
+- Grouping the other side's lines by voice now uses a small speaker-recognition model that runs on your Mac
+  (WeSpeaker ResNet34-LM). The old method heard one voice in every real call. In tests on real recorded meetings the
+  new one never put two people in one voice; the old one did in half or more of them. A line that isn't clearly
+  anyone's voice now gets no voice, rather than someone else's.
+- Still nothing leaves your Mac and no audio is kept: the model reads the temporary meeting audio and stores only
+  numbers. Voices remembered by the old method aren't reused; they're learned again the next time you confirm a name.
+  A remembered voice is still shown as "Name?" until you confirm it.
+- The app is about 64 MB bigger, and grouping voices after a long meeting takes about half a minute longer.
+
 ## 1.0.1 — 2026-10-22
 
 ### Who said what

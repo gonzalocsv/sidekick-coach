@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.5 — 2026-11-07
+
+### Sidekick in the Dock
+- While the Sidekick window is open, Sidekick now has a Dock icon and its own menu at the top left: About Sidekick,
+  Check for Updates…, Settings… (⌘,), Services, Hide and Quit. Close the window and it goes back to living in the
+  menu bar.
+- During a meeting the Dock icon steps aside, so the HUD keeps floating over a full-screen Meet, Teams or Zoom.
+
 ## 1.0.4 — 2026-11-07
 
 ### The same cards, for less

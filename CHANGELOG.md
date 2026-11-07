@@ -1,5 +1,24 @@
 # Changelog
 
+## 1.0.4 — 2026-11-07
+
+### The same cards, for less
+- Live cards now reuse a stored copy of your meeting context. Every card used to send your profile, objectives,
+  meeting notes and people at full price. From the second card on, Sidekick keeps that block in a cache, which the AI
+  provider bills at about a tenth of the price. In a test meeting this cut the cost of each card by a quarter with
+  a small profile, and more with a full one. The cards are the same: the model reads exactly the same text.
+- The cache lives 30 minutes at a time, is extended while cards keep coming, and is deleted when the meeting ends
+  or when your brief changes it. Before, a stored cache was only made for very large profiles, kept for two hours,
+  and saving the "What's this meeting?" brief left the old one billing.
+- Saving the brief no longer pays for a second warm-up card.
+- Asking about the same meetings reads them in the same order every time, so a follow-up question costs less. With
+  OpenAI, cards share a stable transcript opening and a cache key, so its automatic cache picks them up.
+
+### See where the money goes
+- Every model call is now logged on your Mac with what it was for and what it cost: cards, debrief, review, naming,
+  transcription, and cache storage. The re-transcription after a meeting is counted now as well. `hud cost-report`
+  shows the split and how much was read from cache. Nothing leaves your Mac.
+
 ## 1.0.3 — 2026-10-23
 
 ### Google Meet extension from the Chrome Web Store
